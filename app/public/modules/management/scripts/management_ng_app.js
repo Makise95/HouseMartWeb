@@ -3,6 +3,7 @@
 // Management page angular app module
 
 var houseMart = angular.module('HouseMart', [
+	'ngAnimate',
 	'ui.bootstrap',
 	'ui.router',
 	'zumba.angular-waypoints',
@@ -10,7 +11,7 @@ var houseMart = angular.module('HouseMart', [
 	'HouseMart.NewPostControllers'
 ]);
 
-houseMart.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+houseMart.config(function($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise('/posts');
 
@@ -23,13 +24,13 @@ houseMart.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 		.state('main.postDetail', {
 			url: "/{postID:int}",
 			parent: 'main',
-			templateUrl: "/assets/modules/postLoader/templates/postDetail.html",
-			controller: 'PostDetailController as PostDetailController'
+			templateUrl: "/assets/templates/postEditor.html",
+			controller: 'PostEditorController as PostEditorController'
 		});
-}])
+})
 
-houseMart.controller('MainController', ['$window', function($window){
+houseMart.controller('MainController', function($window){
 	this.location = {
 		path: $window.location.pathname
 	};
-}]);
+});

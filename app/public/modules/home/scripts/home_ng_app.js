@@ -3,12 +3,13 @@
 // Homepage angular app module
 
 var houseMart = angular.module('HouseMart', [
+	'ngAnimate',
 	'ui.bootstrap',
 	'ui.router',
 	'HouseMart.PostLoaderControllers'
 ]);
 
-houseMart.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+houseMart.config(function($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise('/');
 
@@ -24,10 +25,10 @@ houseMart.config(['$stateProvider', '$urlRouterProvider', function($stateProvide
 			templateUrl: "/assets/modules/postLoader/templates/postDetail.html",
 			controller: 'PostDetailController as PostDetailController'
 		});
-}])
+})
 
-houseMart.controller('MainController', ['$window', function($window){
+houseMart.controller('MainController', function($window){
 	this.location = {
 		path: $window.location.pathname
 	};
-}]);
+});

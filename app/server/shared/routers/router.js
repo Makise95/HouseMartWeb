@@ -3,6 +3,8 @@
 // BASE SETUP
 // ================================================
 
+"use strict";
+
 var express 		= require('express');
 
 var routerAPI		= require(makeRootPath('app/server/modules/api/routers/api_router.js')),
@@ -16,6 +18,8 @@ var authenticator	= require(makeRootPath('app/server/shared/middlewares/authenti
 
 // ROUTING
 // ================================================
+
+router.use('/favicon.ico', express.static(makeRootPath('app/public/shared/imgs/favicon.ico')));
 
 // Route for providing static assets
 router.use('/assets', routerAssets);
@@ -32,6 +36,15 @@ router.get('/home', authenticator.authorize, function(req, res){
 
 // login page
 router.use('/login', routerLogin);
+
+// Logout by removing jwt's cookie
+router.use('/logout', function(req, res) {
+	res.cookie('token', {}, {
+		maxAge: 1
+	});
+	
+	res.redirect('/home');
+});
 
 // Register page
 router.use('/signup', routerSignup);
